@@ -1,0 +1,66 @@
+## 1️⃣ Veriyi çekme ve buton oluşturma
+
+* Bot, Sheets’ten tüm stok listesini çekiyor (ürün adı + last count).
+* Tek mesajda **inline keyboard** ile tüm satırları buton hâline getiriyorsun.
+* Her buton üzerinde **ürün adı + son sayım değeri** yazıyor.
+* Kullanıcı butona tıklarsa → o satır için **değer değiştirilebilir** hale geliyor (force reply ile input iste).
+* Tıklamazsa → eski değer geçerli kabul ediliyor.
+
+**Veri yapısı önerisi (session / hafıza için):**
+
+```js
+session = {
+  chatId: 12345,
+  items: [
+    { rowIndex: 2, name: "Elma", lastCount: 12, newValue: null, edited: false },
+    { rowIndex: 3, name: "Armut", lastCount: 8, newValue: null, edited: false },
+    ...
+  ]
+}
+```
+
+* `newValue`: kullanıcı butona tıklayıp yeni değer girerse buraya kaydedilir.
+* `edited`: kullanıcı butona tıkladı mı → boolean.
+
+---
+
+## 2️⃣ Kullanıcının değer girmesi
+
+* Kullanıcı butona tıkladığında:
+
+  * `force_reply` ile input kutusu aç.
+  * Girilen değeri `newValue` olarak session’a kaydet.
+  * `edited = true`.
+* Eğer kullanıcı butona tıklamazsa, `edited = false` → eski değer geçerli kabul edilir.
+
+---
+
+## 3️⃣ Onay ve admin kontrolü
+
+* Kullanıcı **değiştirmek istediği tüm butonlara tıkladıktan sonra “Onayla”** butonuna basar.
+* Bu aşamada bot, session içindeki **edited / newValue** verilerini toplar ve admin’e gönderir:
+
+  * Kullanıcı hangi ürünleri değiştirdi → yeni değerler nelermiş → eski değerler neymiş → admin görür.
+* Admin “✅ Onayla” butonuna basarsa → bot Sheets’i **toplu olarak günceller**.
+* Admin “❌ Reddet” butonuna basarsa → kullanıcıya bildirim gönderilir ve session gerekirse silinir veya tekrar düzenlenir.
+
+---
+
+## 4️⃣ Özet akış
+
+1. `/showstock` → bot tek mesaj + inline keyboard, her buton: `Ürün adı | Last Count`.
+2. Kullanıcı butona tıklarsa → yeni değer girebilir.
+3. Tıklamayan buton → eski değer geçerli.
+4. Kullanıcı tüm değişiklikleri bitirip “Onayla” → admin’e gönder.
+5. Admin onay verirse → Sheets’e topluca güncelle.
+
+---
+
+## 5️⃣ Ek ipuçları
+
+* Buton callback\_data: her satır için `row_2`, `row_3` gibi ver, session ile eşleştir.
+* Session’ı chatId bazlı tut → aynı kullanıcı birden fazla stok sayımı yapabilir.
+* Admin onayı için **inline keyboard** kullan → approve/reject seçenekleri.
+* Sheets güncellemeyi toplu yapmak için `spreadsheets.values.batchUpdate` kullanmak performansı artırır.
+
+---
