@@ -28,8 +28,6 @@ function init() {
             console.error("sheets error", error)
             bot.sendMessage(msg.chat.id, "Tabloya yok sikmisler olmus");
         }
-
-
     })
 
     bot.onText(/\/getflowerstock$/, async (msg) => {
@@ -45,6 +43,8 @@ function init() {
                 return [{
                     text: `${product} | ${stock}`,
                     callback_data: JSON.stringify({ action: 'flower', id, stock })
+                    // pass an ID with callback_data, write a function that gets the id from the sheet
+                    // to overcome the data size problem
                 }]
             })
 
@@ -57,8 +57,6 @@ function init() {
             bot.sendMessage(msg.chat.id, "Tabloya yok sikmisler olmus");
         }
     })
-
-
 
     bot.onText(/\/save/, async (msg) => {
         const chatID = msg.chat.id
@@ -76,7 +74,6 @@ function init() {
             messageText += `Flower ${productID}: ${change.oldStock} → ${change.newStock}\n`;
         }
 
-
         await bot.sendMessage(adminChatID, messageText, {
             reply_markup: {
                 inline_keyboard: [
@@ -89,7 +86,6 @@ function init() {
                 ]
             }
         });
-
     });
 
     bot.on("callback_query", async (query) => {
@@ -218,9 +214,6 @@ function init() {
         }
 
     }
-
-
-
 }
 
 module.exports = { init };
