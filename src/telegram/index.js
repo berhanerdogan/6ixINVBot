@@ -1,14 +1,16 @@
+require('dotenv').config();
 const TelegramBot = require("node-telegram-bot-api")
 const sheet = require('../sheet');
 const csv = require('../csv')
 
-const TOKEN = "8495027562:AAGxtNKjOhqKXBbSDGfiE2ruV2Ik0e0vDno"
+const TOKEN = process.env.TELEGRAM_TOKEN
+const csvPath = process.env.CSV_PATH
+const adminChatID = process.env.ADMIN_CHAT_ID
 
 const bot = new TelegramBot(TOKEN, { polling: true })
 const sessions = {}
 
 function init() {
-
     bot.onText(/\/getstock$/, async (msg) => {
         sessions[msg.chat.id].changes.productChanges = {}
         startSession(msg)
@@ -51,7 +53,6 @@ function init() {
 
     bot.onText(/\/save/, async (msg) => {
         const chatID = msg.chat.id
-        const adminChatID = -4909585957
         const userSession = sessions[chatID]
 
         let messageText = `User ${chatID} made the following changes:\n`;
@@ -79,11 +80,10 @@ function init() {
     bot.on("callback_query", async (query) => {
         startSession(query.message)
         const chatID = query.message.chat.id
-        const adminChatID = -4909585957
         const data = JSON.parse(query.data)
         sessions[chatID].action = data.action
 
-        if (chatID === adminChatID) {
+        if (chatID == adminChatID) {
             handleAdminCallback(query);
         } else {
             handleUserCallback(query);
@@ -116,10 +116,8 @@ function init() {
     async function handleAdminCallback(query) {
         const data = JSON.parse(query.data)
         const userID = data.user
-        const adminChatID = -4909585957
         const userSession = sessions[userID]
         const csvFile = await csv.getCSV()
-        const csvPath = '/Users/berhan/projects/TGbot/src/telegram/sample.csv'
 
         if (!userSession) return bot.sendMessage(adminChatID, `No session found for user ${userID}`);
 
@@ -131,6 +129,7 @@ function init() {
             }
             await csv.writeCSV(csvPath, updates);
             bot.sendMessage(adminChatID, "CSV updated")
+            bot.sendDocument(adminChatID, csvPath)
         }
 
         if (data.action === 'sheet') {

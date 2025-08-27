@@ -1,13 +1,16 @@
+require('dotenv').config();
 const fs = require('fs')
 const csv = require('csv-parser')
 const { stringify } = require('csv-stringify');
+
+const csvPath = process.env.CSV_PATH
 
 
 
 exports.getCSV = async () => {
     return new Promise((resolve, reject) => {
         const results = []
-        fs.createReadStream('/Users/berhan/projects/TGbot/src/telegram/sample.csv')
+        fs.createReadStream(csvPath)
             .pipe(csv())
             .on('data', (data) => results.push(data))
             .on('end', () => resolve(results))
