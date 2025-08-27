@@ -1,0 +1,10 @@
+bot/
+ ├─ init.js        // bot başlatma, TelegramBot instance
+ ├─ sessions.js    // session yönetimi
+ ├─ commands/
+ │    ├─ getStock.js
+ │    ├─ getFlowerStock.js
+ │    ├─ save.js
+ │    └─ requestRestock.js
+ ├─ csv.js
+ └─ sheet.js

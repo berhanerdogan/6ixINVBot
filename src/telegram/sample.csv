@@ -17,5 +17,5 @@ ProductID,SKU,Name,Quantity,Price,Category,Description
 10016,IND-THC-TN,THC Tincture 500mg,15,48.0,Tincture,Balanced 1:1 option
 10017,IND-CHC-ED,Chocolate Edible 100mg,32,20.0,Edible,10x10mg pieces
 10018,IND-GMY-ED,Gummy Edible 100mg,13,18.0,Edible,Assorted flavors
-10019,IND-PRR-PD,Pre-Roll 1g,13,12.0,Pre-Roll,"Single, house blend"
-10020,IND-MPR-PD,Mini Pre-Rolls 5x0.5g,11111111,22.0,Pre-Roll,Five pack minis
+10019,IND-PRR-PD,Pre-Roll 1g,1,12.0,Pre-Roll,"Single, house blend"
+10020,IND-MPR-PD,Mini Pre-Rolls 5x0.5g,1,22.0,Pre-Roll,Five pack minis

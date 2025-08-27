@@ -40,7 +40,7 @@ function init() {
                 const [id, sku, name, quantity] = row
                 return [{
                     text: `${name} | ${quantity}`,
-                    callback_data: JSON.stringify({ action: 'flower', id, quantity})
+                    callback_data: JSON.stringify({ action: 'flower', id, quantity })
                 }]
             })
             bot.sendMessage(msg.chat.id, "Products:", {
@@ -49,6 +49,53 @@ function init() {
         } catch (error) {
             bot.sendMessage(msg.chat.id, "Cannot get the sheet")
         }
+    })
+
+    bot.onText(/\/requestrestock$/, async (msg) => {
+        startSession(msg)
+        const chatID = msg.chat.id
+
+        try {
+            const products = await csv.getCSV();
+            const response = await sheet.get("test31!A:D");
+            const flowers = response.data.values.map(row => {
+                const [id, sku, name, quantity] = row;
+                return { id, name, quantity: Number(quantity) }
+            })
+
+            let lowMessage = "Restock needed:\n"
+            let lowStock = false
+
+            products.forEach(product => {
+                if (Number(product.Quantity < 6)) {
+                    lowMessage += `- ${product.Name} | ${product.Quantity} left\n`
+                    lowStock = true
+                }
+
+            })
+
+            flowers.forEach(flower => {
+                if (Number(flower.Quantity < 6)) {
+                    lowMessage += `- ${flower.Name} | ${flower.Quantity} left\n`
+                    lowStock = true
+                }
+            })
+
+            if (lowStock) {
+                await bot.sendMessage(adminChatID, lowMessage,)
+                await bot.sendMessage(chatID, "Restock request sent")
+            } else {
+                await bot.sendMessage(chatID, "All stocks are sufficient")
+            }
+
+        } catch (error) {
+            console.error(error)
+            await bot.sendMessage(chatID, "Failed to check the stock")
+        }
+
+
+
+
     })
 
     bot.onText(/\/save/, async (msg) => {
@@ -74,8 +121,14 @@ function init() {
                     ]
                 ]
             }
-        });
+        })
+    })
+
+    bot.onText(/\/reset$/, (msg) => {
+        sessions[msg.chat.id] = undefined;
+        bot.sendMessage(msg.chat.id, "Session reset.");
     });
+
 
     bot.on("callback_query", async (query) => {
         startSession(query.message)
@@ -182,6 +235,7 @@ function init() {
                     flowerChanges: {},
                     productChanges: {}
                 },
+                requests: {},
                 startTime: new Date(),
                 lastActivity: new Date()
             }
@@ -190,8 +244,8 @@ function init() {
 
     function getRowIndex(rows, productID) {
         const idStr = String(productID)
-        for (let i = 1; i < rows.length; i++){
-            if (String(rows[i][0]) === idStr){
+        for (let i = 1; i < rows.length; i++) {
+            if (String(rows[i][0]) === idStr) {
                 return i + 1
             }
         }
