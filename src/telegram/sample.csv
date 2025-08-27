@@ -13,9 +13,9 @@ ProductID,SKU,Name,Quantity,Price,Category,Description
 10012,IND-PIN-CR,Pineapple Express Cartridge 1g,1,44.0,Vape,"Sativa-leaning, daytime"
 10013,IND-HSH-12,Hash Rosin 1.2g,10,55.0,Concentrate,Cold-cured rosin
 10014,IND-WAX-10,Wax 1.0g,18,30.0,Concentrate,Budget concentrate
-10015,IND-CBD-TN,CBD Tincture 1000mg,22,50.0,Tincture,THC-free broad spectrum
+10015,IND-CBD-TN,CBD Tincture 1000mg,2,50.0,Tincture,THC-free broad spectrum
 10016,IND-THC-TN,THC Tincture 500mg,15,48.0,Tincture,Balanced 1:1 option
 10017,IND-CHC-ED,Chocolate Edible 100mg,32,20.0,Edible,10x10mg pieces
-10018,IND-GMY-ED,Gummy Edible 100mg,1,18.0,Edible,Assorted flavors
-10019,IND-PRR-PD,Pre-Roll 1g,1,12.0,Pre-Roll,"Single, house blend"
-10020,IND-MPR-PD,Mini Pre-Rolls 5x0.5g,1,22.0,Pre-Roll,Five pack minis
+10018,IND-GMY-ED,Gummy Edible 100mg,13,18.0,Edible,Assorted flavors
+10019,IND-PRR-PD,Pre-Roll 1g,13,12.0,Pre-Roll,"Single, house blend"
+10020,IND-MPR-PD,Mini Pre-Rolls 5x0.5g,11,22.0,Pre-Roll,Five pack minis
