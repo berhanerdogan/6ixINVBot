@@ -1,9 +1,9 @@
-require('dotenv').config();
+const ck = require('ckey')
 const { GoogleAuth } = require('google-auth-library');
 const {google} = require('googleapis');
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-const TOKEN_PATH = process.env.SHEET_TOKEN_FILE;
-const spreadsheetId = process.env.SHEET_ID;
+const TOKEN_PATH = ck.SHEET_TOKEN_FILE;
+const spreadsheetId = cl.SHEET_ID;
 
 let sheet;
 

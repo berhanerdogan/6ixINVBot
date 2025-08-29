@@ -1,4 +1,4 @@
-require('dotenv').config();
+const ck = require('ckey')
 const express = require('express')
 const cors = require('cors')
 const sheet = require('./src/sheet')
@@ -6,7 +6,7 @@ const csv = require('./src/csv')
 
 
 const app = express()
-const PORT = 4000
+const PORT = ck.PORT
 
 app.use(cors({
     origin:'http://localhost:5173',

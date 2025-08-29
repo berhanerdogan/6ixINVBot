@@ -1,9 +1,9 @@
-require('dotenv').config();
+const ck = require('ckey')
 const fs = require('fs')
 const csv = require('csv-parser')
 const { stringify } = require('csv-stringify');
 
-const csvPath = process.env.CSV_PATH
+const csvPath = ck.CSV_PATH
 
 
 

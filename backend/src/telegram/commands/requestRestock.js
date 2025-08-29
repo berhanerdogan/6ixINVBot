@@ -1,8 +1,8 @@
-require('dotenv').config();
+const ck = require('ckey')
 const sheet = require('../../sheet')
 const csv = require('../../csv')
 const sessionManager = require('../sessions')
-const adminChatID = process.env.ADMIN_CHAT_ID
+const adminChatID = ck.ADMIN_CHAT_ID
 
 
 

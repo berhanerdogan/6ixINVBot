@@ -1,9 +1,10 @@
+const ck = require('ckey')
 const csv = require('../../csv');
 const sheet = require('../../sheet');
 const { getRowIndex } = require('../utils/utils')
 const sessionManager = require('../sessions');
-const adminChatID = process.env.ADMIN_CHAT_ID
-const csvPath = process.env.CSV_PATH
+const adminChatID = ck.ADMIN_CHAT_ID
+const csvPath = ck.CSV_PATH
 
 async function handleAdminCallback(query, bot) {
     const data = JSON.parse(query.data)

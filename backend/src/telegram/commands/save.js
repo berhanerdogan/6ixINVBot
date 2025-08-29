@@ -1,6 +1,6 @@
-require('dotenv').config();
+const ck = require('ckey')
 const sessionManager = require('../sessions')
-const adminChatID = process.env.ADMIN_CHAT_ID
+const adminChatID = ck.ADMIN_CHAT_ID
 
 module.exports = async (bot) => {
     bot.onText(/\/save/, async (msg) => {

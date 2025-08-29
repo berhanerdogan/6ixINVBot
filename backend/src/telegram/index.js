@@ -1,8 +1,8 @@
-require('dotenv').config();
+const ck = require('ckey')
 const TelegramBot = require("node-telegram-bot-api")
 
-const TOKEN = process.env.TELEGRAM_TOKEN
-const adminChatID = process.env.ADMIN_CHAT_ID
+const TOKEN = ck.TELEGRAM_TOKEN
+const adminChatID = ck.ADMIN_CHAT_ID
 
 const bot = new TelegramBot(TOKEN, { polling: true })
 const sessionManager = require('./sessions');
