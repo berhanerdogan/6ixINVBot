@@ -1,0 +1,21 @@
+ProductID,SKU,Name,Quantity,Price,Category,Description
+10001,IND-OGK-18,OG Kush 1/8oz,1,35.0,Flower,Premium OG Kush eighth
+10002,IND-BLU-18,Blue Dream 1/8oz,1,30.0,Flower,"Popular hybrid, balanced effects"
+10003,IND-GSC-18,Girl Scout Cookies 1/8oz,1,40.0,Flower,"High potency, dessert terpene"
+10004,IND-SDV-18,Sour Diesel 1/8oz,1,38.0,Flower,Energetic sativa
+10005,IND-GG4-18,Gorilla Glue #4 1/8oz,1,39.0,Flower,"Sticky, heavy hitter"
+10006,IND-NRD-18,Northern Lights 1/8oz,11,36.0,Flower,Classic indica
+10007,IND-JHK-18,Jack Herer 1/8oz,1,34.0,Flower,Creative sativa
+10008,IND-WED-18,Wedding Cake 1/8oz,24,42.0,Flower,"Sweet, relaxing"
+10009,IND-ZKT-18,Zkittlez 1/8oz,12,41.0,Flower,Fruity terp profile
+10010,IND-RNT-18,Runtz 1/8oz,13,43.0,Flower,Balanced hybrid
+10011,IND-GEL-CR,Gelato Cartridge 1g,40,45.0,Vape,"Ceramic cart, 90%+ total"
+10012,IND-PIN-CR,Pineapple Express Cartridge 1g,1,44.0,Vape,"Sativa-leaning, daytime"
+10013,IND-HSH-12,Hash Rosin 1.2g,10,55.0,Concentrate,Cold-cured rosin
+10014,IND-WAX-10,Wax 1.0g,18,30.0,Concentrate,Budget concentrate
+10015,IND-CBD-TN,CBD Tincture 1000mg,2,50.0,Tincture,THC-free broad spectrum
+10016,IND-THC-TN,THC Tincture 500mg,1,48.0,Tincture,Balanced 1:1 option
+10017,IND-CHC-ED,Chocolate Edible 100mg,1,20.0,Edible,10x10mg pieces
+10018,IND-GMY-ED,Gummy Edible 100mg,0,18.0,Edible,Assorted flavors
+10019,IND-PRR-PD,Pre-Roll 1g,1,12.0,Pre-Roll,"Single, house blend"
+10020,IND-MPR-PD,Mini Pre-Rolls 5x0.5g,1,22.0,Pre-Roll,Five pack minis
