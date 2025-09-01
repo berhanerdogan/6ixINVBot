@@ -39,7 +39,7 @@ function init() {
 
     bot.on("callback_query", async (query) => {
         const chatID = query.message.chat.id
-        const data = query.data
+        const data = JSON.parse(query.data)
         const sessions = sessionManager.getSession(chatID);
         sessions.action = query.data
 
