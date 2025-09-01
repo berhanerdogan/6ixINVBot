@@ -2,8 +2,10 @@ const ck = require('ckey')
 const { GoogleAuth } = require('google-auth-library');
 const {google} = require('googleapis');
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-const TOKEN_PATH = ck.SHEET_TOKEN_FILE;
-const spreadsheetId = cl.SHEET_ID;
+const path = require('path')
+const TOKEN_FILE = ck.SHEET_TOKEN_FILE
+const TOKEN_PATH = path.join(__dirname, TOKEN_FILE)
+const spreadsheetId = ck.SHEET_ID;
 
 let sheet;
 

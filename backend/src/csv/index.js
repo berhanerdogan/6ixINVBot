@@ -2,8 +2,11 @@ const ck = require('ckey')
 const fs = require('fs')
 const csv = require('csv-parser')
 const { stringify } = require('csv-stringify');
+const path = require('path')
 
-const csvPath = ck.CSV_PATH
+
+const csvFile = ck.CSV_FILE
+const csvPath = path.join(__dirname, csvFile)
 
 
 
