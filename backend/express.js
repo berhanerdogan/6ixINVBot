@@ -22,10 +22,6 @@ app.use(cors({
     credentials: true,
 }))
 
-app.use(express.static(path.join(__dirname, "../frontend/tgbot_web/dist")))
-app.get(/(.*)/, (req, res) => {
-      res.sendFile(path.join(__dirname, '../frontend/tgbot_web/dist/index.html'))
-})
 
 
 app.get('/api/all-products', async (req, res) =>{
@@ -34,7 +30,7 @@ app.get('/api/all-products', async (req, res) =>{
         const sheetValues = sheetRaw.data.values
         const sheetHeader = sheetValues[0]
         const sheetRows = sheetValues.slice(1)
-
+        
         const sheetData = sheetRows.map(row => {
             const obj = {};
             sheetHeader.forEach((header, index) => {
@@ -53,6 +49,10 @@ app.get('/api/all-products', async (req, res) =>{
 })
 
 
+app.use(express.static(path.join(__dirname, "../frontend/tgbot_web/dist")))
+app.get(/(.*)/, (req, res) => {
+      res.sendFile(path.join(__dirname, '../frontend/tgbot_web/dist/index.html'))
+})
 
 
 
