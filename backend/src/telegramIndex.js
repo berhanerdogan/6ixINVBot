@@ -1,5 +1,5 @@
 
-const tgBot = require('./telegram')
+/*const tgBot = require('./telegram')
 const sheet = require('./sheet')
 
 const start = async () => {
@@ -10,3 +10,4 @@ const start = async () => {
 
 
 start();
+*/
