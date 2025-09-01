@@ -41,7 +41,7 @@ function init() {
         const chatID = query.message.chat.id
         const data = query.data
         const sessions = sessionManager.getSession(chatID);
-        sessions.action = JSON.parse(query.data)
+        sessions.action = query.data
 
         if (chatID == adminChatID) {
             handleAdminCallback(query, bot);
