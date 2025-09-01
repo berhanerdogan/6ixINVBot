@@ -4,7 +4,8 @@ const cors = require('cors')
 const sheet = require('./src/sheet')
 const csv = require('./src/csv')
 const path = require('path')
-const bot = new TelegramBot(TOKEN, { polling: true })
+const tgBot = require('./telegram')
+const sheet = require('./sheet')
 
 
 
@@ -51,10 +52,16 @@ app.get('/api/all-products', async (req, res) =>{
     }
 })
 
+const start = async () => {
+  await sheet.init();
+  tgBot.init();
+  console.log('--- start ---');
+};
+
+
 
 app.listen(PORT, async() => {
-    await sheet.init()
-    await bot.init()
+    start();
     console.log(PORT)
     console.log(`Server running on port ${PORT}`);
 });
