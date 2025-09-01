@@ -4,7 +4,7 @@ const cors = require('cors')
 const sheet = require('./src/sheet')
 const csv = require('./src/csv')
 const path = require('path')
-const tgBot = require('./telegram')
+const tgBot = require('./src/telegram')
 
 
 
