@@ -23,7 +23,7 @@ function init() {
         const options = {
             reply_markup: {
                 inline_keyboard: [
-                    [{ text: 'Start a Count', web_app: { url: 'https://5304975cf175.ngrok-free.app' } }],
+                    [{ text: 'Start a Count', web_app: { url: 'https://sixixinvbot.onrender.com' } }],
                     [{ text: 'Request Restock', callback_data: 'restock' }],
                     [{ text: 'Send Report', callback_data: 'report' }],
                     [{ text: 'Reset', callback_data: 'reset' }],
@@ -41,7 +41,7 @@ function init() {
         const chatID = query.message.chat.id
         const data = query.data
         const sessions = sessionManager.getSession(chatID);
-        sessions.action = data.action
+        sessions.action = JSON.parse(query.data)
 
         if (chatID == adminChatID) {
             handleAdminCallback(query, bot);
