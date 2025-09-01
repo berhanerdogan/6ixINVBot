@@ -4,7 +4,7 @@ const cors = require('cors')
 const sheet = require('./src/sheet')
 const csv = require('./src/csv')
 const path = require('path')
-const tgBot = require('./src/telegram')
+const start = require('src/telegramIndex')
 
 
 
@@ -52,11 +52,7 @@ app.get('/api/all-products', async (req, res) =>{
     }
 })
 
-const start = async () => {
-  await sheet.init();
-  tgBot.init();
-  console.log('--- start ---');
-};
+
 
 
 
