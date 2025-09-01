@@ -20,7 +20,7 @@ export default function BotForm() {
     useEffect(() => {
         const productData = async () => {
             try {
-                const res = await fetch(`https://localhost:4000/api/all-products`)
+                const res = await fetch(`https://sixixinvbot.onrender.com/api/all-products`)
                 const data = await res.json()
                 setProducts(data)
 
