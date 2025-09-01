@@ -9,12 +9,19 @@ const app = express()
 const PORT = ck.PORT
 
 app.use(cors({
-    origin:'http://localhost:5173',
+    origin: [
+        'http://localhost:5173',
+        'https://web.telegram.org',
+        'https://t.me'
+    ],
     methods: ['GET', 'POST'],
     credentials: true,
 }))
 
-app.use(express.json())
+app.use(express.static(path.join(__dirname, "../frontend/tgbot_web/dist")))
+app.get("*", (req, res) => {
+      res.sendFile(path.join(__dirname, '../frontend/tgbot_web/dist/index.html'))
+})
 
 
 app.get('/api/all-products', async (req, res) =>{

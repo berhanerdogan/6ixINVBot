@@ -9,24 +9,37 @@ const sessionManager = require('./sessions');
 
 const getStock = require('./commands/getStock');
 const getflowerstock = require('./commands/getFlowerStock')
-const requestrestock = require('./commands/requestRestock')
-const save = require('./commands/save')
-const reset = require('./commands/reset')
 const { handleAdminCallback } = require('./handlers/adminHandler')
 const { handleUserCallback } = require('./handlers/userHandler')
- 
+
 function init() {
-    
+
     getStock(bot)
     getflowerstock(bot)
-    requestrestock(bot)
-    save(bot)
-    reset(bot)
+
+    bot.onText(/\/start/, (msg) => {
+        const chatId = msg.chat.id;
+
+        const options = {
+            reply_markup: {
+                inline_keyboard: [
+                    [{ text: 'Start a Count', web_app: { url: 'https://5304975cf175.ngrok-free.app' } }],
+                    [{ text: 'Request Restock', callback_data: 'restock' }],
+                    [{ text: 'Send Report', callback_data: 'report' }],
+                    [{ text: 'Reset', callback_data: 'reset' }],
+                ]
+            }
+        };
+
+        bot.sendMessage(chatId, 'Welcome to 6ixINVBot', options);
+    });
+
+
 
 
     bot.on("callback_query", async (query) => {
         const chatID = query.message.chat.id
-        const data = JSON.parse(query.data)
+        const data = query.data
         const sessions = sessionManager.getSession(chatID);
         sessions.action = data.action
 

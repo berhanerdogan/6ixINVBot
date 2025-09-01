@@ -20,7 +20,7 @@ export default function BotForm() {
     useEffect(() => {
         const productData = async () => {
             try {
-                const res = await fetch(`http://localhost:4000/api/all-products`)
+                const res = await fetch(`https://localhost:4000/api/all-products`)
                 const data = await res.json()
                 setProducts(data)
 
@@ -92,7 +92,7 @@ export default function BotForm() {
                     <div>
                         <h2>Products</h2>
                         {products.map((product, index) => (
-                            <div key={product.ProductID}>
+                            <div key={product.ProductID} className="product-item">
                                 <label onClick={() => setVisible(prev => prev === product.ProductID ? null : product.ProductID)} style={{ cursor: 'pointer' }}>
                                     {product.Name} | {product.Quantity}
                                 </label>
@@ -103,6 +103,8 @@ export default function BotForm() {
                                         onChange={e => handleProductChange(index, e.target.value)}
                                         placeholder={product.Quantity}
                                         autoFocus
+                                        className="product-input"
+
                                     />
                                 )}
                             </div>
@@ -121,17 +123,18 @@ export default function BotForm() {
                     </div>
                 )}
 
-                <div className="flex gap-2">
-                    <button type="button" onClick={prevPage} className="bg-blue-600 text-white px-4 py-2 rounded">
+                <div className="form-buttons">
+                    <button type="button" onClick={prevPage} className="bg-black">
                         Prev
                     </button>
-                    <button type="button" onClick={nextPage} className="bg-blue-600 text-white px-4 py-2 rounded">
-                        Next
-                    </button>
-                    <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
+                    <button type="submit" className="bg-black">
                         Save
                     </button>
+                    <button type="button" onClick={nextPage} className="bg-black">
+                        Next
+                    </button>
                 </div>
+
             </form>
         </div>
     )
