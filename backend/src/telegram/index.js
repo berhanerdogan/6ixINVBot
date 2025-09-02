@@ -2,9 +2,12 @@ const ck = require('ckey')
 const TelegramBot = require("node-telegram-bot-api")
 
 const TOKEN = ck.TELEGRAM_TOKEN
+const URL = ck.PUBLIC_URL
 const adminChatID = ck.ADMIN_CHAT_ID
 
-const bot = new TelegramBot(TOKEN, { polling: true })
+const bot = new TelegramBot(TOKEN)
+bot.setWebHook(`${URL}/bot${TOKEN}`)
+
 const sessionManager = require('./sessions');
 
 const getStock = require('./commands/getStock');
@@ -12,11 +15,10 @@ const getflowerstock = require('./commands/getFlowerStock')
 const { handleAdminCallback } = require('./handlers/adminHandler')
 const { handleUserCallback } = require('./handlers/userHandler')
 
+
+
 function init() {
 
-    if (bot) {
-        return
-    }
 
     getStock(bot)
     getflowerstock(bot)
@@ -79,4 +81,4 @@ function init() {
 
 }
 
-module.exports = { init };
+module.exports = { init, bot }

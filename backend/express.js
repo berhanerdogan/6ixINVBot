@@ -4,13 +4,14 @@ const cors = require('cors')
 const sheet = require('./src/sheet')
 const csv = require('./src/csv')
 const path = require('path')
-const { init } = require('./src/telegram/index')
+const { init, bot } = require('./src/telegram/index')
 
 
 
 
 const app = express()
 const PORT = ck.PORT
+const TOKEN = ck.TELEGRAM_TOKEN
 
 app.use(cors({
     origin: [
@@ -21,6 +22,13 @@ app.use(cors({
     methods: ['GET', 'POST'],
     credentials: true,
 }))
+
+app.use(express.json())
+
+app.post(`/bot${TOKEN}`, (req, res) => {
+    bot.processUpdate(req.body)
+    res.sendStatus(200)
+})
 
 
 
@@ -58,7 +66,7 @@ app.get(/(.*)/, (req, res) => {
 
 app.listen(PORT, async() => {
     init()
-    sheet.init()
+    await sheet.init()
     console.log(PORT)
     console.log(`Server running on port ${PORT}`);
 });
