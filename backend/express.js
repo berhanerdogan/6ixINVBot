@@ -26,16 +26,27 @@ app.use(cors({
 
 app.get('/api/all-products', async (req, res) =>{
     try {
-
+        const sheetRaw = await sheet.get("test31!A:D")
+        const sheetValues = sheetRaw.data.values
+        const sheetHeader = sheetValues[0]
+        const sheetRows = sheetValues.slice(1)
+        
+        const sheetData = sheetRows.map(row => {
+            const obj = {};
+            sheetHeader.forEach((header, index) => {
+                obj[header] = row[index] || ""
+            });
+            return obj
+        })
         
         const csvData = await csv.getCSV()
-        res.json(csvData)
+        const allData = [...sheetData, ...csvData]
+        res.json(allData)
     } catch (error) {
         console.error("Hata detayları:", error.message, error.stack)
         res.status(500).json({ error: 'Sokucam sheets verisine' });
     }
 })
-
 
 app.use(express.static(path.join(__dirname, "../frontend/tgbot_web/dist")))
 app.get(/(.*)/, (req, res) => {
@@ -44,7 +55,9 @@ app.get(/(.*)/, (req, res) => {
 
 
 
+
 app.listen(PORT, async() => {
+    await sheet.init()
     tgBot.init()
     console.log(PORT)
     console.log(`Server running on port ${PORT}`);
