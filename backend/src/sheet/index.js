@@ -4,7 +4,6 @@ const {google} = require('googleapis');
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const path = require('path')
 const TOKEN_FILE = ck.SHEET_TOKEN_FILE
-const TOKEN_PATH = path.join(__dirname, TOKEN_FILE)
 const spreadsheetId = ck.SHEET_ID;
 
 let sheet;
@@ -12,7 +11,7 @@ let sheet;
 exports.init = async () => {
     console.log("---init google sheet---")
     const client = new GoogleAuth({
-        keyFilename: TOKEN_PATH,
+        keyFilename: TOKEN_FILE,
         scopes: SCOPES
     })
     let auth = await client.getClient()
