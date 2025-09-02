@@ -2,17 +2,18 @@ const ck = require('ckey')
 const fs = require('fs')
 const csv = require('csv-parser')
 const { stringify } = require('csv-stringify');
+const path = require('path')
 
 
 const csvFile = ck.CSV_FILE
-
+const csvPath = path.join(__dirname, csvFile)
 
 
 
 exports.getCSV = async () => {
     return new Promise((resolve, reject) => {
         const results = []
-        fs.createReadStream(csvFile)
+        fs.createReadStream(csvPath)
             .pipe(csv())
             .on('data', (data) => results.push(data))
             .on('end', () => resolve(results))

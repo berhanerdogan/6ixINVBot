@@ -39,9 +39,8 @@ app.get('/api/all-products', async (req, res) =>{
             return obj
         })
         
-        const csvData = await csv.getCSV()
-        const allData = [...sheetData, ...csvData]
-        res.json(allData)
+
+        res.json(sheetData)
     } catch (error) {
         console.error("Hata detayları:", error.message, error.stack)
         res.status(500).json({ error: 'Sokucam sheets verisine' });
