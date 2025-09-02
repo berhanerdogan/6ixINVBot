@@ -9,9 +9,13 @@ const spreadsheetId = ck.SHEET_ID;
 let sheet;
 
 exports.init = async () => {
+
+    const credentials = JSON.parse(
+      Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_BASE64, 'base64').toString()
+    )
     console.log("---init google sheet---")
     const client = new GoogleAuth({
-        keyFilename: TOKEN_FILE,
+        credentials,
         scopes: SCOPES
     })
     let auth = await client.getClient()
