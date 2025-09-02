@@ -57,7 +57,7 @@ app.get(/(.*)/, (req, res) => {
 
 
 app.listen(PORT, async() => {
-    await startBot.init()
+    await startBot()
     console.log(PORT)
     console.log(`Server running on port ${PORT}`);
 });
