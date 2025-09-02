@@ -26,21 +26,10 @@ app.use(cors({
 
 app.get('/api/all-products', async (req, res) =>{
     try {
-        const sheetRaw = await sheet.get("test31!A:D")
-        const sheetValues = sheetRaw.data.values
-        const sheetHeader = sheetValues[0]
-        const sheetRows = sheetValues.slice(1)
-        
-        const sheetData = sheetRows.map(row => {
-            const obj = {};
-            sheetHeader.forEach((header, index) => {
-                obj[header] = row[index] || ""
-            });
-            return obj
-        })
-        
 
-        res.json(sheetData)
+        
+        const csvData = await csv.getCSV()
+        res.json(csvData)
     } catch (error) {
         console.error("Hata detayları:", error.message, error.stack)
         res.status(500).json({ error: 'Sokucam sheets verisine' });
