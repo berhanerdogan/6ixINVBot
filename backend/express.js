@@ -4,7 +4,7 @@ const cors = require('cors')
 const sheet = require('./src/sheet')
 const csv = require('./src/csv')
 const path = require('path')
-const { startBot } = require('./src/startBot')
+const { init } = require('./src/telegram/index')
 
 
 
@@ -57,7 +57,7 @@ app.get(/(.*)/, (req, res) => {
 
 
 app.listen(PORT, async() => {
-    await startBot()
+    init()
     console.log(PORT)
     console.log(`Server running on port ${PORT}`);
 });
