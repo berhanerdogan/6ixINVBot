@@ -14,9 +14,10 @@ const { handleUserCallback } = require('./handlers/userHandler')
 
 function init() {
 
-    if (bot) return
+    if (bot) {
+        return
+    }
 
-    
     getStock(bot)
     getflowerstock(bot)
 
