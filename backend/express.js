@@ -58,6 +58,7 @@ app.get(/(.*)/, (req, res) => {
 
 app.listen(PORT, async() => {
     init()
+    sheet.init()
     console.log(PORT)
     console.log(`Server running on port ${PORT}`);
 });

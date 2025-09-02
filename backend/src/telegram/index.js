@@ -16,6 +16,7 @@ function init() {
 
     if (bot) return
 
+    
     getStock(bot)
     getflowerstock(bot)
 
