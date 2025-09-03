@@ -37,11 +37,11 @@ app.post("/form", async (req, res) => {
     const session = sessionManager.getSession(chatID)
     session.form = formData
     const form = session.form
-    const changedProducts = form.products.filter(p => (p.Quantity && p.Quantity != ""))
-
     console.log(formData)
     console.log("---------------------------------------------")
     console.log(form)
+    //const changedProducts = form.products.filter(p => (p.Quantity && p.Quantity != ""))
+
 
 
     try {
