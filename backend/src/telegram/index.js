@@ -14,10 +14,11 @@ const { handleAdminCallback } = require('./handlers/adminHandler')
 const { handleUserCallback } = require('./handlers/userHandler')
 
 
+let chatID
 
 function init() {
     bot.onText(/\/start/, (msg) => {
-        const chatId = msg.chat.id;
+        chatID = msg.chat.id;
 
         const options = {
             reply_markup: {
@@ -30,14 +31,14 @@ function init() {
             }
         };
 
-        bot.sendMessage(chatId, 'Welcome to 6ixINVBot', options);
+        bot.sendMessage(chatID, 'Welcome to 6ixINVBot', options);
     });
 
 
 
 
     bot.on("callback_query", async (query) => {
-        const chatID = query.message.chat.id
+        chatID = query.message.chat.id
         const data = query.data
         const sessions = sessionManager.getSession(chatID);
         sessions.action = data.action
@@ -50,7 +51,7 @@ function init() {
     })
 
     bot.on("message", async (msg) => {
-        const chatID = msg.chat.id
+        chatID = msg.chat.id
         const sessions = sessionManager.getSession(chatID);
         const action = sessions.action
         if (msg.reply_to_message) {
@@ -74,4 +75,8 @@ function init() {
 
 }
 
-module.exports = { init, bot }
+function getChatID() {
+    return chatID
+}
+
+module.exports = { init, bot, getChatID }

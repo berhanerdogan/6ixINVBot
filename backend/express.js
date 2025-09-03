@@ -4,7 +4,7 @@ const cors = require('cors')
 const sheet = require('./src/sheet')
 const csv = require('./src/csv')
 const path = require('path')
-const { init, bot } = require('./src/telegram/index')
+const { init, bot, getChatID } = require('./src/telegram/index')
 const sessionManager = require('./src/telegram/sessions');
 
 
@@ -13,6 +13,7 @@ const app = express()
 const PORT = ck.PORT
 const TOKEN = ck.TELEGRAM_TOKEN
 const ADMIN = ck.ADMIN_CHAT_ID
+const chatID = getChatID
 
 app.use(cors({
     origin: [
@@ -33,20 +34,17 @@ app.post(`/bot${TOKEN}`, (req, res) => {
 
 app.post("/form", async (req, res) => {
     const formData = req.body
-    const bName = formData.bName
-    const date = formData.date
-    const sessionID = bName + " - " + date
-    const session = sessionManager.getSession(sessionID)
+    const session = sessionManager.getSession(chatID)
     session.form = formData
     const form = session.form
-    const changedProducts = formData.products.filter(
-       p => p.Quantity && p.Quantity !== ""
-    )
+    const changedProducts = form.products.filter(p => (p.Quantity && p.Quantity != ""))
+
+
 
 
     try {
         const text = `📦 Mismatch Report:\n
-            Budtender: ${form.bNmae}\n
+            Budtender: ${form.bName}\n
             Date: ${form.date}\n
             Shift: ${form.shift}
             --------------------
@@ -72,8 +70,7 @@ app.post("/form", async (req, res) => {
                 ]
             }
         })
-        await bot.sendMessage(ADMIN, session)
-
+    await bot.sendMessage(ADMIN, JSON.stringify(session, null, 2))
 
     } catch (error) {
         console.error(error)

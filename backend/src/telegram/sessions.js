@@ -12,7 +12,8 @@ function startSession(chatId) {
             action: null,
             requests: {},       
             startTime: new Date(),
-            lastActivity: new Date()
+            lastActivity: new Date(),
+            form: {}
         };
     }
     return sessions[chatId];
