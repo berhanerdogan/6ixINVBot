@@ -39,7 +39,9 @@ app.post("/form", async (req, res) => {
     const form = session.form
     const changedProducts = form.products.filter(p => (p.Quantity && p.Quantity != ""))
 
-
+    console.log(formData)
+    console.log("---------------------------------------------")
+    console.log(form)
 
 
     try {
