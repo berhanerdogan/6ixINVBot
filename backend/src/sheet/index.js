@@ -2,8 +2,6 @@ const ck = require('ckey')
 const { GoogleAuth } = require('google-auth-library');
 const {google} = require('googleapis');
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-const path = require('path')
-const TOKEN_FILE = ck.SHEET_TOKEN_FILE
 const spreadsheetId = ck.SHEET_ID;
 
 let sheet;

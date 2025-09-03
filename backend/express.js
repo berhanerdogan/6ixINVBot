@@ -7,8 +7,6 @@ const path = require('path')
 const { init, bot } = require('./src/telegram/index')
 
 
-
-
 const app = express()
 const PORT = ck.PORT
 const TOKEN = ck.TELEGRAM_TOKEN
@@ -29,6 +27,25 @@ app.post(`/bot${TOKEN}`, (req, res) => {
     bot.processUpdate(req.body)
     res.sendStatus(200)
 })
+
+app.post("/send", async (req, res) => {
+  try {
+    const data = req.body
+    const text = `📦 Form Data:\n${JSON.stringify(data, null, 2)}`;
+
+    await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: ck.ADMIN_CHAT_ID, text }),
+    });
+
+    res.json({ ok: true, sentToTelegram: true });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ ok: false, error: "Error accured while sending the message" });
+  }
+});
+
 
 
 

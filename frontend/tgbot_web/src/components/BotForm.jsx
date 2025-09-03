@@ -39,10 +39,22 @@ export default function BotForm() {
             }
         }
         productData()
-
-
-
     }, [])
+
+    const sendForm = async () => {
+        try {
+            await fetch('https://sixixinvbot.onrender.com/api/all-products', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(FormData)
+            })
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
 
     const nextPage = () => setPage(prev => prev + 1)
     const prevPage = () => setPage(prev => prev - 1)
