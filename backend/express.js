@@ -37,30 +37,26 @@ app.post("/form", async (req, res) => {
     const session = sessionManager.getSession(chatID)
     session.form = formData
     const form = session.form.formData
-    console.log(formData)
-    console.log("---------------------------------------------")
-    console.log(form)
     const changedProducts = form.products.filter(p => (p.Quantity && p.Quantity != ""))
 
 
 
     try {
-        const text = `📦 Mismatch Report:\n
-            Budtender: ${form.bName}\n
-            Date: ${form.date}\n
-            Shift: ${form.shift}
+        const text = `*📦 Mismatch Report*
+            *Budtender:* ${form.bName}
+            *Date:* ${form.date}
+            *Shift:* ${form.shift}
             --------------------
-            ${changedProducts.map(p => `${p.Name}: ${p.Quantity}`).join("\n")}
+            ${changedProducts.map(p => `• ${p.Name}: ${p.Quantity}`).join("\n")}
             --------------------
-            Deposited: ${form.deposited}
-            Expected: ${form.expected}
+            *Deposited:* ${form.deposited}
+            *Expected:* ${form.expected}
             ---------------------
-            Cash: ${form.cash}
-            Coin: ${form.coin}
-            Total: ${form.total}
-            `
+            *Cash:* ${form.cash}
+            *Coin:* ${form.coin}
+            *Total:* ${form.total}`
 
-    await bot.sendMessage(ADMIN, text, {
+        await bot.sendMessage(ADMIN, text, { parse_mode: "Markdown" }, {
             reply_markup: {
                 inline_keyboard: [
                     [
@@ -72,7 +68,7 @@ app.post("/form", async (req, res) => {
                 ]
             }
         })
-    await bot.sendMessage(ADMIN, JSON.stringify(session, null, 2))
+        await bot.sendMessage(ADMIN, JSON.stringify(session, null, 2))
 
     } catch (error) {
         console.error(error)
