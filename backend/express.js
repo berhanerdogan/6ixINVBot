@@ -10,6 +10,7 @@ const { init, bot } = require('./src/telegram/index')
 const app = express()
 const PORT = ck.PORT
 const TOKEN = ck.TELEGRAM_TOKEN
+const adminChatID = ck.ADMIN_CHAT_ID
 
 app.use(cors({
     origin: [
@@ -36,7 +37,7 @@ app.post("/send", async (req, res) => {
     await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: ck.ADMIN_CHAT_ID, text }),
+      body: JSON.stringify({ chat_id: adminChatID, text }),
     });
 
     res.json({ ok: true, sentToTelegram: true });
