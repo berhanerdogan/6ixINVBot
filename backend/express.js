@@ -32,13 +32,13 @@ app.post(`/bot${TOKEN}`, (req, res) => {
 })
 
 app.post("/form", async (req, res) => {
-    const {chatID, formData} = req.body
-    const userSession = sessionManager.getSession(chatID)
-    userSession.formData = formData
-    const form = userSession.formData
-    const changedProducts = userSession.formData.products.filter(
-    p => p.Quantity && p.Quantity !== ""
-);
+    const { chatID, formData } = req.body;
+    const session = sessionManager.getSession(chatID);
+    session.form = formData;
+    const changedProducts = formData.products.filter(
+        p => p.Quantity && p.Quantity !== ""
+    );
+
 
     try {
         const text = `📦 Mismatch Report:\n
@@ -55,26 +55,27 @@ app.post("/form", async (req, res) => {
             Coin: ${form.coin}
             Total: ${form.total}
             `
-        
-         await bot.sendMessage(ADMIN, text);
+
+        await bot.sendMessage(ADMIN, text)
+        await bot.sendMessage(ADMIN, session)
 
 
     } catch (error) {
         console.error(error)
     }
-    res.json({ ok: true, session: userSession })
+    res.json({ ok: true })
 })
 
 
 
 
-app.get('/api/all-products', async (req, res) =>{
+app.get('/api/all-products', async (req, res) => {
     try {
         const sheetRaw = await sheet.get("test31!A:D")
         const sheetValues = sheetRaw.data.values
         const sheetHeader = sheetValues[0]
         const sheetRows = sheetValues.slice(1)
-        
+
         const sheetData = sheetRows.map(row => {
             const obj = {};
             sheetHeader.forEach((header, index) => {
@@ -82,7 +83,7 @@ app.get('/api/all-products', async (req, res) =>{
             });
             return obj
         })
-        
+
         const csvData = await csv.getCSV()
         const allData = [...sheetData, ...csvData]
         res.json(allData)
@@ -94,13 +95,13 @@ app.get('/api/all-products', async (req, res) =>{
 
 app.use(express.static(path.join(__dirname, "../frontend/tgbot_web/dist")))
 app.get(/(.*)/, (req, res) => {
-      res.sendFile(path.join(__dirname, '../frontend/tgbot_web/dist/index.html'))
+    res.sendFile(path.join(__dirname, '../frontend/tgbot_web/dist/index.html'))
 })
 
 
 
 
-app.listen(PORT, async() => {
+app.listen(PORT, async () => {
     init()
     await sheet.init()
     console.log(PORT)

@@ -18,7 +18,7 @@ const { handleUserCallback } = require('./handlers/userHandler')
 function init() {
     bot.onText(/\/start/, (msg) => {
         const chatId = msg.chat.id;
-        const userSession = sessionManager.startSession(chatId)
+        const userSession = sessionManager.getSession(chatId)
 
         const options = {
             reply_markup: {
