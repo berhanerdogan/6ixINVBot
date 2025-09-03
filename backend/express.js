@@ -36,8 +36,7 @@ app.post("/form", (req, res) => {
     const userSession = sessionManager.getSession(chatID)
     userSession.formData = formData
     console.log("this is user session: ", userSession)
-    res.json(data)
-})
+    res.json({ ok: true, session: userSession });})
 
 
 
