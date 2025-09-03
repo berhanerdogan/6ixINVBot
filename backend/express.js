@@ -32,8 +32,10 @@ app.post(`/bot${TOKEN}`, (req, res) => {
 })
 
 app.post("/form", (req, res) => {
-    const data = req.body
-    console.log("this is data: ", data)
+    const {chatID, formData} = req.body
+    const userSession = sessionManager.getSession(chatID)
+    userSession.formData = formData
+    console.log("this is user session: ", userSession)
     res.json(data)
 })
 

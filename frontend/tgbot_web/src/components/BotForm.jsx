@@ -51,9 +51,9 @@ export default function BotForm() {
         e.preventDefault();
         console.log("Form Data:", formData)
         const tgUser = window.Telegram.WebApp.initDataUnsafe.user;
-        const chatId = tgUser.id; 
+        const chatID = tgUser.id; 
         const payload = {
-            chatId,
+            chatID,
             ...formData
         }
 
