@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function BotForm() {
 
@@ -49,18 +50,17 @@ export default function BotForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Form Data:", formData)
-        try {
-            await fetch('https://sixixinvbot.onrender.com/api/all-products', {
-                method: 'POST',
+        try{
+            const res = await axios.post('https://sixixinvbot.onrender.com/form', formData, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(FormData)
             })
-
+            console.log("response: ", res.data)
         } catch (error) {
             console.error(error)
         }
+        
     }
 
     const handleChange = (e) => {
