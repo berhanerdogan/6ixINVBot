@@ -50,7 +50,7 @@ app.post("/form", async (req, res) => {
             Date: ${form.date}\n
             Shift: ${form.shift}
             --------------------
-            ${changedProducts.map(p => `${p.Name}: ${p.Quantity}`).join("\n")}
+
             --------------------
             Deposited: ${form.deposited}
             Expected: ${form.expected}
