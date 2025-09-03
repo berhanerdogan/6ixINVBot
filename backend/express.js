@@ -38,6 +38,7 @@ app.post("/form", async (req, res) => {
     const sessionID = bName + " - " + date
     const session = sessionManager.getSession(sessionID)
     session.form = formData
+    const form = session.form
     //const changedProducts = formData.products.filter(
     //   p => p.Quantity && p.Quantity !== ""
     //)
