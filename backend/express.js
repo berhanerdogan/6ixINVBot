@@ -36,7 +36,7 @@ app.post("/form", async (req, res) => {
     const formData = req.body
     const session = sessionManager.getSession(chatID)
     session.form = formData
-    const form = session.form
+    const form = session.form.formData
     console.log(formData)
     console.log("---------------------------------------------")
     console.log(form)
