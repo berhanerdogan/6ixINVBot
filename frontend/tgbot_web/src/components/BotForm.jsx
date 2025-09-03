@@ -50,13 +50,19 @@ export default function BotForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Form Data:", formData)
+        const tgUser = window.Telegram.WebApp.initDataUnsafe.user;
+        const chatId = tgUser.id; 
+        const payload = {
+            chatId,
+            ...formData
+        }
+
         try{
-            const res = await axios.post('https://sixixinvbot.onrender.com/form', formData, {
+            const res = await axios.post('https://sixixinvbot.onrender.com/form', payload, {
                 headers: {
                     "Content-Type": "application/json",
                 },
             })
-            console.log("response: ", res.data)
         } catch (error) {
             console.error(error)
         }

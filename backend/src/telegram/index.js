@@ -10,21 +10,15 @@ bot.setWebHook(`${URL}/bot${TOKEN}`)
 
 const sessionManager = require('./sessions');
 
-const getStock = require('./commands/getStock');
-const getflowerstock = require('./commands/getFlowerStock')
 const { handleAdminCallback } = require('./handlers/adminHandler')
 const { handleUserCallback } = require('./handlers/userHandler')
 
 
 
 function init() {
-
-
-    getStock(bot)
-    getflowerstock(bot)
-
     bot.onText(/\/start/, (msg) => {
         const chatId = msg.chat.id;
+        const userSession = sessionManager.startSession(chatId)
 
         const options = {
             reply_markup: {

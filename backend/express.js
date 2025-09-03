@@ -5,6 +5,8 @@ const sheet = require('./src/sheet')
 const csv = require('./src/csv')
 const path = require('path')
 const { init, bot } = require('./src/telegram/index')
+const sessionManager = require('./src/telegram/sessions');
+
 
 
 const app = express()
