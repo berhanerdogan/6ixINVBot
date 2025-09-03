@@ -52,7 +52,7 @@ export default function BotForm() {
         console.log("Form Data:", formData)
 
         try{
-            const res = await axios.post('https://sixixinvbot.onrender.com/form', payload, {
+            const res = await axios.post('https://sixixinvbot.onrender.com/form', {
                 headers: {
                     "Content-Type": "application/json",
                 },
