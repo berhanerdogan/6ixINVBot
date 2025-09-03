@@ -32,12 +32,15 @@ app.post(`/bot${TOKEN}`, (req, res) => {
 })
 
 app.post("/form", async (req, res) => {
-    const { chatID, formData } = req.body;
-    const session = sessionManager.getSession(chatID);
-    session.form = formData;
-    const changedProducts = formData.products.filter(
-        p => p.Quantity && p.Quantity !== ""
-    );
+    const formData = req.body
+    const bName = formData.bName
+    const date = formData.date
+    const sessionID = bName + " - " + date
+    const session = sessionManager.getSession(sessionID)
+    session.form = formData
+    //const changedProducts = formData.products.filter(
+    //   p => p.Quantity && p.Quantity !== ""
+    //)
 
 
     try {
@@ -56,7 +59,18 @@ app.post("/form", async (req, res) => {
             Total: ${form.total}
             `
 
-        await bot.sendMessage(ADMIN, text)
+    await bot.sendMessage(ADMIN, text, {
+            reply_markup: {
+                inline_keyboard: [
+                    [
+                        { text: "Export as CSV", callback_data: JSON.stringify({ action: "csv", user: chatID }) }
+                    ],
+                    [
+                        { text: "Update Google Sheets", callback_data: JSON.stringify({ action: "sheet", user: chatID }) }
+                    ]
+                ]
+            }
+        })
         await bot.sendMessage(ADMIN, session)
 
 
