@@ -39,9 +39,9 @@ app.post("/form", async (req, res) => {
     const session = sessionManager.getSession(sessionID)
     session.form = formData
     const form = session.form
-    //const changedProducts = formData.products.filter(
-    //   p => p.Quantity && p.Quantity !== ""
-    //)
+    const changedProducts = formData.products.filter(
+       p => p.Quantity && p.Quantity !== ""
+    )
 
 
     try {
