@@ -41,7 +41,14 @@ export default function BotForm() {
         productData()
     }, [])
 
-    const sendForm = async () => {
+
+    const nextPage = () => setPage(prev => prev + 1)
+    const prevPage = () => setPage(prev => prev - 1)
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log("Form Data:", formData)
         try {
             await fetch('https://sixixinvbot.onrender.com/api/all-products', {
                 method: 'POST',
@@ -54,15 +61,6 @@ export default function BotForm() {
         } catch (error) {
             console.error(error)
         }
-    }
-
-    const nextPage = () => setPage(prev => prev + 1)
-    const prevPage = () => setPage(prev => prev - 1)
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form Data:", formData)
     }
 
     const handleChange = (e) => {
