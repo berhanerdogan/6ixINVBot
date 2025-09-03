@@ -31,12 +31,39 @@ app.post(`/bot${TOKEN}`, (req, res) => {
     res.sendStatus(200)
 })
 
-app.post("/form", (req, res) => {
+app.post("/form", async (req, res) => {
     const {chatID, formData} = req.body
     const userSession = sessionManager.getSession(chatID)
     userSession.formData = formData
-    console.log("this is user session: ", userSession)
-    res.json({ ok: true, session: userSession });})
+    const form = userSession.formData
+    const changedProducts = userSession.formData.products.filter(
+    p => p.Quantity && p.Quantity !== ""
+);
+
+    try {
+        const text = `📦 Mismatch Report:\n
+            Budtender: ${form.bNmae}\n
+            Date: ${form.date}\n
+            Shift: ${form.shift}
+            --------------------
+            ${changedProducts.map(p => `${p.Name}: ${p.Quantity}`).join("\n")}
+            --------------------
+            Deposited: ${form.deposited}
+            Expected: ${form.expected}
+            ---------------------
+            Cash: ${form.cash}
+            Coin: ${form.coin}
+            Total: ${form.total}
+            `
+        
+         await bot.sendMessage(ADMIN, text);
+
+
+    } catch (error) {
+        console.error(error)
+    }
+    res.json({ ok: true, session: userSession })
+})
 
 
 
