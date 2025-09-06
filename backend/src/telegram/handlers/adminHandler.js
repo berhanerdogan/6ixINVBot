@@ -18,11 +18,9 @@ async function handleAdminCallback(query, bot) {
         bot.sendMessage(adminChatID, "Updating CSV...")
         const formData = userSession.form
         const allProducts = formData.products
-        const changedProducts = allProducts.filter(p => {
-            if (p.ProductID >= 1000) {
-                (p.Quantity && p.Quantity != "")  
-            }
-        }) 
+        const changedProducts = allProducts.filter(p =>
+            p.ProductID < 1000 && p.Quantity && p.Quantity !== ""
+        )
         let updates = csvFile
         for (const [ProductID, Quantity] of changedProducts) {
             updates = csv.updateCSV(updates, ProductID, Quantity);
@@ -35,7 +33,7 @@ async function handleAdminCallback(query, bot) {
 
     if (data.action === 'sheet') {
         bot.sendMessage(adminChatID, "Updating Sheets...")
-        
+
         const allProducts = formData.products
         const changedProducts = allProducts.filter(p => (p.Quantity && p.Quantity != ""))
 
