@@ -42,3 +42,8 @@ exports.writeCSV = (filePath, records) => {
         })
     })
 }
+
+exports.getPath = () => {
+    const csvPath = path.join(__dirname, csvFile)
+    return csvPath
+}

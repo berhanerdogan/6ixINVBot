@@ -4,7 +4,7 @@ const sheet = require('../../sheet');
 const { getRowIndex } = require('../utils/utils')
 const sessionManager = require('../sessions');
 const adminChatID = ck.ADMIN_CHAT_ID
-const csvPath = ck.CSV_PATH
+const csvPath = csv.getPath()
 
 async function handleAdminCallback(query, bot) {
     const data = JSON.parse(query.data)
