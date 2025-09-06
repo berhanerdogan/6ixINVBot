@@ -5,10 +5,6 @@ function startSession(chatId) {
         sessions[chatId] = {
             chatId,
             activeProduct: null,
-            changes: {
-                productChanges: {},
-                flowerChanges: {}
-            },
             action: null,
             requests: {},       
             startTime: new Date(),

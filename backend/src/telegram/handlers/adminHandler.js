@@ -16,23 +16,33 @@ async function handleAdminCallback(query, bot) {
 
     if (data.action === 'csv') {
         bot.sendMessage(adminChatID, "Updating CSV...")
+        const formData = userSession.form
+        const allProducts = formData.products
+        const changedProducts = allProducts.filter(p => {
+            if (p.ProductID >= 1000) {
+                (p.Quantity && p.Quantity != "")  
+            }
+        }) 
         let updates = csvFile
-        for (const [productID, change] of Object.entries(userSession.changes.productChanges)) {
-            updates = csv.updateCSV(updates, productID, change.newStock);
+        for (const [ProductID, Quantity] of changedProducts) {
+            updates = csv.updateCSV(updates, ProductID, Quantity);
         }
         await csv.writeCSV(csvPath, updates);
         bot.sendMessage(adminChatID, "CSV updated")
         bot.sendDocument(adminChatID, csvPath)
     }
 
+
     if (data.action === 'sheet') {
         bot.sendMessage(adminChatID, "Updating Sheets...")
-        const changes = userSession.changes.flowerChanges
+        
+        const allProducts = formData.products
+        const changedProducts = allProducts.filter(p => (p.Quantity && p.Quantity != ""))
+
         const response = await sheet.get("test31!A:A")
         const rows = response.data.values
 
         for (const productID in changes) {
-            const { newStock } = changes[productID];
             const rowIndex = getRowIndex(rows, productID)
             if (!rowIndex) continue
             await sheet.update(`test31!D${rowIndex}`, [[newStock]])
