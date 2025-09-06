@@ -55,6 +55,9 @@ app.post("/form", async (req, res) => {
             *Cash:* ${form.cash}
             *Coin:* ${form.coin}
             *Total:* ${form.total}`
+            .split("\n")
+            .map(line => line.trim())
+            .join("\n")
 
         await bot.sendMessage(ADMIN, text, { parse_mode: "Markdown" }, {
             reply_markup: {
