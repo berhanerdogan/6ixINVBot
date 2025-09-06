@@ -59,7 +59,8 @@ app.post("/form", async (req, res) => {
             .map(line => line.trim())
             .join("\n")
 
-        await bot.sendMessage(ADMIN, text, { parse_mode: "Markdown" }, {
+        await bot.sendMessage(ADMIN, text, {
+            parse_mode: "Markdown",
             reply_markup: {
                 inline_keyboard: [
                     [
@@ -71,7 +72,6 @@ app.post("/form", async (req, res) => {
                 ]
             }
         })
-        await bot.sendMessage(ADMIN, JSON.stringify(session, null, 2))
 
     } catch (error) {
         console.error(error)
