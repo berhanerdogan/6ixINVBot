@@ -17,10 +17,13 @@ async function handleAdminCallback(query, bot) {
     if (data.action === 'csv') {
         bot.sendMessage(adminChatID, "Updating CSV...")
         const formData = userSession.form
+        console.log(formData)
         const allProducts = formData.products
+        console.log(allProducts)
         const changedProducts = allProducts.filter(p =>
             p.ProductID < 1000 && p.Quantity && p.Quantity !== ""
         )
+        console.log(changedProducts)
         let updates = csvFile
         for (const [ProductID, Quantity] of changedProducts) {
             updates = csv.updateCSV(updates, ProductID, Quantity);
