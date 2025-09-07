@@ -1,4 +1,4 @@
-const requestRestock = require('../commands/requestRestock')
+const { requestRestock } = require('../commands/requestRestock')
 const reset = require('../commands/reset')
 
 
