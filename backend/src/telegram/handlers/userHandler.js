@@ -10,8 +10,8 @@ function handleUserCallback(query, bot) {
 
     switch(data.action) {
         case "restock":
-            requestrestock(bot)
             console.log("restock requested")
+            requestrestock(bot)
             break
         case "reset":
             reset(bot)

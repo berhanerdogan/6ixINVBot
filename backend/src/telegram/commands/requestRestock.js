@@ -7,6 +7,7 @@ const adminChatID = ck.ADMIN_CHAT_ID
 
 module.exports = async (bot) => {
     bot.onText(/\/requestrestock$/, async (msg) => {
+        console.log("inside requestrestock")
         const chatID = msg.chat.id
 
         try {
@@ -14,9 +15,9 @@ module.exports = async (bot) => {
             console.log(products)
             const response = await sheet.get("test31!A:D")
             console.log(response)
-            const flowers = response.data.values.map(row => {
+            const flowers = response.data.values.slice(1).map(row => {
                 const [id, sku, name, quantity] = row;
-                return { id, name, quantity: Number(quantity) }
+                return { id, name, Quantity: quantity }
             })
             console.log(flowers)
 
@@ -24,7 +25,7 @@ module.exports = async (bot) => {
             let lowStock = false
 
             products.forEach(product => {
-                if (Number(product.Quantity < 6)) {
+                if (Number(product.Quantity) < 6) {
                     lowMessage += `- ${product.Name} | ${product.Quantity} left\n`
                     lowStock = true
                 }
@@ -32,7 +33,7 @@ module.exports = async (bot) => {
             })
 
             flowers.forEach(flower => {
-                if (Number(flower.Quantity < 6)) {
+                if (Number(flower.Quantity) < 6) {
                     lowMessage += `- ${flower.Name} | ${flower.Quantity} left\n`
                     lowStock = true
                 }
