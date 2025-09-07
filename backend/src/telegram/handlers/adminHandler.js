@@ -16,7 +16,7 @@ async function handleAdminCallback(query, bot) {
 
     if (data.action === 'csv') {
         await bot.sendMessage(adminChatID, "Updating CSV...")
-        const formData = userSession.form.formData
+        const formData = userSession.form
         const allProducts = formData.products
         const changedProducts = allProducts.filter(p =>
             p.ProductID < 1000 && p.Quantity && p.Quantity !== ""
