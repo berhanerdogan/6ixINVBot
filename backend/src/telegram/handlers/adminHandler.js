@@ -11,12 +11,12 @@ async function handleAdminCallback(query, bot) {
     const userID = data.user
     const userSession = sessionManager.getSession(userID);
     const csvFile = await csv.getCSV()
+    const formData = userSession.form
 
     if (!userSession) return bot.sendMessage(adminChatID, `No session found for user ${userID}`);
 
     if (data.action === 'csv') {
         await bot.sendMessage(adminChatID, "Updating CSV...")
-        const formData = userSession.form
         const allProducts = formData.products
         const changedProducts = allProducts.filter(p =>
             Number(p.ProductID) >= 1000 && p.Quantity && p.Quantity !== ""
@@ -28,29 +28,28 @@ async function handleAdminCallback(query, bot) {
         await csv.writeCSV(csvPath, updates);
         await bot.sendMessage(adminChatID, "CSV updated")
         await bot.sendDocument(adminChatID, csvPath)
-        console.log("Changed Products:", changedProducts)
-        console.log("all products", allProducts)
-        console.log("session as string", userSession)
-
-
     }
 
 
     if (data.action === 'sheet') {
-        bot.sendMessage(adminChatID, "Updating Sheets...")
+        await bot.sendMessage(adminChatID, "Updating Sheets...")
 
         const allProducts = formData.products
-        const changedProducts = allProducts.filter(p => (p.Quantity && p.Quantity != ""))
+        const changedProducts = allProducts.filter(p =>
+            Number(p.ProductID) < 1000 && p.Quantity && p.Quantity !== ""
+        )
 
         const response = await sheet.get("test31!A:A")
         const rows = response.data.values
+        const rowIndex = getRowIndex(rows, ProductID)
 
-        for (const productID in changes) {
-            const rowIndex = getRowIndex(rows, productID)
+        for (const p of changedProducts) {
+            const rowIndex = getRowIndex(rows, p.ProductID)
             if (!rowIndex) continue
-            await sheet.update(`test31!D${rowIndex}`, [[newStock]])
+            await sheet.update(`test31!D${rowIndex}`, [p.Quantity])    
         }
-        bot.sendMessage(adminChatID, "Google Sheets updated")
+        
+        await bot.sendMessage(adminChatID, "Google Sheets updated")
     }
 
 }
