@@ -32,21 +32,10 @@ function resetSession(chatId) {
     }
 }
 
-function clearSessionActivity(chatId) {
-    if (sessions[chatId]) {
-        sessions[chatId].changes.productChanges = {}
-        sessions[chatId].changes.flowerChanges = {}
-        sessions[chatId].action = null
-        sessions[chatId].requests = {}
-
-    }
-    
-}
 
 module.exports = {
     startSession,
     updateLastActivity,
     getSession,
     resetSession,
-    clearSessionActivity
-};
+}
