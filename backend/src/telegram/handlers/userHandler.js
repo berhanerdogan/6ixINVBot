@@ -1,4 +1,3 @@
-const { getChatID } = require('..')
 const { requestRestock } = require('../commands/requestRestock')
 const reset = require('../commands/reset')
 
