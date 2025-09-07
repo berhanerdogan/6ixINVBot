@@ -19,7 +19,7 @@ async function handleAdminCallback(query, bot) {
         const formData = userSession.form
         const allProducts = formData.products
         const changedProducts = allProducts.filter(p =>
-            p.ProductID < "1000" && p.Quantity && p.Quantity !== ""
+            Number(p.ProductID) < 1000 && p.Quantity && p.Quantity !== ""
         )
         let updates = csvFile
         for (const p of changedProducts) {
