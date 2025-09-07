@@ -15,8 +15,8 @@ async function handleAdminCallback(query, bot) {
     if (!userSession) return bot.sendMessage(adminChatID, `No session found for user ${userID}`);
 
     if (data.action === 'csv') {
-        bot.sendMessage(adminChatID, "Updating CSV...")
-        const formData = userSession.form
+        await bot.sendMessage(adminChatID, "Updating CSV...")
+        const formData = userSession.form.formData
         const allProducts = formData.products
         const changedProducts = allProducts.filter(p =>
             p.ProductID < 1000 && p.Quantity && p.Quantity !== ""
@@ -26,8 +26,8 @@ async function handleAdminCallback(query, bot) {
             updates = csv.updateCSV(updates, p.ProductID, p.Quantity);
         }
         await csv.writeCSV(csvPath, updates);
-        bot.sendMessage(adminChatID, "CSV updated")
-        bot.sendDocument(adminChatID, csvPath)
+        await bot.sendMessage(adminChatID, "CSV updated")
+        await bot.sendDocument(adminChatID, csvPath)
     }
 
 
