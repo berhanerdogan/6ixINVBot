@@ -1,7 +1,6 @@
 const ck = require('ckey')
 const sheet = require('../../sheet')
 const csv = require('../../csv')
-const sessionManager = require('../sessions')
 const adminChatID = ck.ADMIN_CHAT_ID
 
 
@@ -9,16 +8,17 @@ const adminChatID = ck.ADMIN_CHAT_ID
 module.exports = async (bot) => {
     bot.onText(/\/requestrestock$/, async (msg) => {
         const chatID = msg.chat.id
-        const session = sessionManager.getSession(chatID)
-        session.changes.productChanges = {}
 
         try {
             const products = await csv.getCSV();
-            const response = await sheet.get("test31!A:D");
+            console.log(products)
+            const response = await sheet.get("test31!A:D")
+            console.log(response)
             const flowers = response.data.values.map(row => {
                 const [id, sku, name, quantity] = row;
                 return { id, name, quantity: Number(quantity) }
             })
+            console.log(flowers)
 
             let lowMessage = "Restock needed:\n"
             let lowStock = false
@@ -44,7 +44,6 @@ module.exports = async (bot) => {
             } else {
                 await bot.sendMessage(chatID, "All stocks are sufficient")
             }
-            console.log(`session after request restock: ${JSON.stringify(session)}`)
 
         } catch (error) {
             console.error(error)
