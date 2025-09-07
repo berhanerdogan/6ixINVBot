@@ -13,7 +13,7 @@ const app = express()
 const PORT = ck.PORT
 const TOKEN = ck.TELEGRAM_TOKEN
 const ADMIN = ck.ADMIN_CHAT_ID
-const chatID = getChatID
+const chatID = getChatID()
 
 app.use(cors({
     origin: [
