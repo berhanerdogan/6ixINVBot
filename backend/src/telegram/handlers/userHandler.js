@@ -1,3 +1,4 @@
+const { help } = require('../commands/help')
 const { requestRestock } = require('../commands/requestRestock')
 const { reset } = require('../commands/reset')
 
@@ -11,7 +12,9 @@ function handleUserCallback(query, bot, chatID) {
         case "reset":
             reset(bot, chatID)
             break
-
+        case "help":
+            help(bot, chatID)
+            break
     }
 }
 

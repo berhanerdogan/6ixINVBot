@@ -25,7 +25,8 @@ function init() {
                 inline_keyboard: [
                     [{ text: 'Start a Count', web_app: { url: 'https://sixixinvbot.onrender.com' } }],
                     [{ text: 'Request Restock', callback_data: 'restock' }],
-                    [{ text: 'Reset', callback_data: 'reset' }]
+                    [{ text: 'Reset', callback_data: 'reset' }],
+                    [{ text: 'Help', callback_data: 'help' }]
                 ]
             }
         };
