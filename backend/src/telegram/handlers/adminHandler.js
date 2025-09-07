@@ -29,8 +29,9 @@ async function handleAdminCallback(query, bot) {
         await bot.sendMessage(adminChatID, "CSV updated")
         await bot.sendDocument(adminChatID, csvPath)
         console.log("Changed Products:", changedProducts)
-        console.log("Before update CSV:", csvFile)
-        console.log("After update CSV:", updates)
+        console.log("all products", allProducts)
+        console.log("session as string", userSession)
+
 
     }
 
