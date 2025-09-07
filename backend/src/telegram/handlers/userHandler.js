@@ -1,17 +1,18 @@
+const { getChatID } = require('..')
 const { requestRestock } = require('../commands/requestRestock')
 const reset = require('../commands/reset')
 
 
 
-function handleUserCallback(query, bot) {
+function handleUserCallback(query, bot, chatID) {
     const data = query.data
 
     switch(data) {
         case "restock":
-            requestRestock(bot)
+            requestRestock(bot, chatID)
             break
         case "reset":
-            reset(bot)
+            reset(bot, chatID)
             break
 
     }

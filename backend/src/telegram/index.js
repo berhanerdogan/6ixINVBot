@@ -35,7 +35,6 @@ function init() {
 
 
 
-
     bot.on("callback_query", async (query) => {
         chatID = query.message.chat.id
         const data = query.data
@@ -45,33 +44,9 @@ function init() {
         if (chatID == adminChatID) {
             handleAdminCallback(query, bot);
         } else {
-            handleUserCallback(query, bot);
+            handleUserCallback(query, bot, chatID);
         }
     })
-
-    bot.on("message", async (msg) => {
-        chatID = msg.chat.id
-        const sessions = sessionManager.getSession(chatID);
-        const action = sessions.action
-        if (msg.reply_to_message) {
-            const newCount = msg.text.trim()
-            const productID = sessions.activeProduct
-
-            if (!isNaN(newCount)) {
-                await bot.sendMessage(chatID, `New stock will be: ${newCount}`)
-                if (action === "product") {
-                    if (!sessions.changes.productChanges[productID]) sessions.changes.productChanges[productID] = {}
-                    sessions.changes.productChanges[productID].newStock = Number(newCount)
-                } else if (action === "flower") {
-                    if (!sessions.changes.flowerChanges[productID]) sessions.changes.flowerChanges[productID] = {}
-                    sessions.changes.flowerChanges[productID].newStock = Number(newCount)
-                }
-            } else {
-                await bot.sendMessage(chatID, "Please enter a number!")
-            }
-        }
-    })
-
 }
 
 function getChatID() {
