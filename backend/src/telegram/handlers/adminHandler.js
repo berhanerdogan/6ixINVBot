@@ -18,9 +18,6 @@ async function handleAdminCallback(query, bot) {
         await bot.sendMessage(adminChatID, "Updating CSV...")
         const formData = userSession.form
         const allProducts = formData.products
-        console.log(userSession)
-        console.log(formData)
-        console.log(allProducts)
         const changedProducts = allProducts.filter(p =>
             p.ProductID < 1000 && p.Quantity && p.Quantity !== ""
         )
@@ -31,6 +28,10 @@ async function handleAdminCallback(query, bot) {
         await csv.writeCSV(csvPath, updates);
         await bot.sendMessage(adminChatID, "CSV updated")
         await bot.sendDocument(adminChatID, csvPath)
+        console.log("Changed Products:", changedProducts)
+        console.log("Before update CSV:", csvFile)
+        console.log("After update CSV:", updates)
+
     }
 
 
