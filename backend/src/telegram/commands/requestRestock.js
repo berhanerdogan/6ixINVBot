@@ -10,7 +10,7 @@ exports.requestRestock = async (bot, chatID) => {
         const response = await sheet.get("test31!A:D")
         const flowers = response.data.values.slice(1).map(row => {
             const [ID, SKU, Name, Quantity] = row;
-            return { ID, Name, Quantity: quantity }
+            return { ID, Name, Quantity: Quantity }
         })
     
         let lowMessage = "Restock needed:\n"
