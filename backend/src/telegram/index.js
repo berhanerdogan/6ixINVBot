@@ -17,7 +17,7 @@ const { handleUserCallback } = require('./handlers/userHandler')
 let chatID
 
 function init() {
-    bot.onText(/\/start/, (msg) => {
+    bot.onText(/\/six/, (msg) => {
         chatID = msg.chat.id;
 
         const options = {
