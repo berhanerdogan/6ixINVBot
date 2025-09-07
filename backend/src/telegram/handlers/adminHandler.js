@@ -41,14 +41,13 @@ async function handleAdminCallback(query, bot) {
 
         const response = await sheet.get("test31!A:A")
         const rows = response.data.values
-        const rowIndex = getRowIndex(rows, ProductID)
 
         for (const p of changedProducts) {
             const rowIndex = getRowIndex(rows, p.ProductID)
             if (!rowIndex) continue
             await sheet.update(`test31!D${rowIndex}`, [p.Quantity])    
         }
-        
+
         await bot.sendMessage(adminChatID, "Google Sheets updated")
     }
 
