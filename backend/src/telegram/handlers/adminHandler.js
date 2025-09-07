@@ -19,7 +19,7 @@ async function handleAdminCallback(query, bot) {
         const formData = userSession.form
         const allProducts = formData.products
         const changedProducts = allProducts.filter(p =>
-            p.ProductID < 1000 && p.Quantity && p.Quantity !== ""
+            p.ProductID < "1000" && p.Quantity && p.Quantity !== ""
         )
         let updates = csvFile
         for (const p of changedProducts) {
@@ -52,7 +52,6 @@ async function handleAdminCallback(query, bot) {
         bot.sendMessage(adminChatID, "Google Sheets updated")
     }
 
-    console.log(`session after admin handle : ${JSON.stringify(userSession)}`)
 }
 
 module.exports = { handleAdminCallback }
