@@ -17,6 +17,9 @@ exports.help = async (bot, chatID) => {
         🔄 *Reset*  
         This button will reset your session.
         `
+        .split("\n")
+        .map(line => line.trim())
+        .join("\n")
 
     await bot.sendMessage(chatID, helpMsg, { parse_mode: "Markdown" })
 
