@@ -8,7 +8,7 @@ function handleUserCallback(query, bot) {
     const chatID = query.message.chat.id
     const data = query.data
 
-    switch(data.action) {
+    switch(data) {
         case "restock":
             console.log("restock requested")
             requestrestock(bot)
